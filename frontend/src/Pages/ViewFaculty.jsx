@@ -15,7 +15,7 @@ function ViewFaculty() {
     }, []);
 
     const fetchFaculty = () => {
-        fetch("https://department-library-api.onrender.com/api/users")
+        fetch(`${import.meta.env.VITE_API_URL}/api/users`)
             .then((res) => res.json())
             .then((data) => {
                 if (Array.isArray(data)) {
@@ -33,7 +33,7 @@ function ViewFaculty() {
     const handleDelete = async (id) => {
         if (!window.confirm("Remove this faculty member?")) return;
         try {
-            const res = await fetch(`https://department-library-api.onrender.com/api/users/${id}`, { method: "DELETE" });
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${id}`, { method: "DELETE" });
             if (res.ok) {
                 toast.success("Faculty member removed");
                 fetchFaculty();
@@ -50,7 +50,7 @@ function ViewFaculty() {
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch(`https://department-library-api.onrender.com/api/users/${editingFaculty._id}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${editingFaculty._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(editingFaculty),

@@ -17,7 +17,7 @@ function BorrowingHistory() {
         if (user.role === "student") query = `?userId=${user._id}`;
 
         try {
-            const res = await fetch(`https://department-library-api.onrender.com/api/borrowing${query}`);
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/borrowing${query}`);
             const data = await res.json();
             if (Array.isArray(data)) {
                 setRecords(data);
@@ -31,7 +31,7 @@ function BorrowingHistory() {
     };
 
     const handleReturn = async (id) => {
-        const res = await fetch(`https://department-library-api.onrender.com/api/borrowing/return/${id}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/borrowing/return/${id}`, {
             method: "PUT"
         });
         if (res.ok) {

@@ -14,7 +14,7 @@ function ViewAdvisors() {
     }, []);
 
     const fetchAdvisors = () => {
-        fetch("https://department-library-api.onrender.com/api/users/advisors")
+        fetch(`${import.meta.env.VITE_API_URL}/api/users/advisors`)
             .then(res => res.json())
             .then(data => {
                 if (Array.isArray(data)) {
@@ -32,7 +32,7 @@ function ViewAdvisors() {
     const handleDelete = async (id) => {
         if (!window.confirm("Remove this advisor?")) return;
         try {
-            const res = await fetch(`https://department-library-api.onrender.com/api/users/${id}`, { method: "DELETE" });
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${id}`, { method: "DELETE" });
             if (res.ok) {
                 toast.success("Advisor removed");
                 fetchAdvisors();
@@ -49,7 +49,7 @@ function ViewAdvisors() {
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch(`https://department-library-api.onrender.com/api/users/${editingAdvisor._id}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${editingAdvisor._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(editingAdvisor),

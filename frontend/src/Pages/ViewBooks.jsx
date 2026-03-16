@@ -18,7 +18,7 @@ function ViewBooks() {
     }, [semesterParam]);
 
     const fetchBooks = () => {
-        const url = `https://department-library-api.onrender.com/api/books${semesterParam ? `?semester=${semesterParam}` : ""}`;
+        const url = `${import.meta.env.VITE_API_URL}/api/books${semesterParam ? `?semester=${semesterParam}` : ""}`;
         fetch(url)
             .then((res) => res.json())
             .then((data) => {
@@ -38,7 +38,7 @@ function ViewBooks() {
     const handleDelete = async (id) => {
         if (!window.confirm("Delete this book?")) return;
         try {
-            const res = await fetch(`https://department-library-api.onrender.com/api/books/${id}`, { method: "DELETE" });
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/books/${id}`, { method: "DELETE" });
             if (res.ok) {
                 toast.success("Book deleted");
                 fetchBooks();
@@ -55,7 +55,7 @@ function ViewBooks() {
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch(`https://department-library-api.onrender.com/api/books/${editingBook._id}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/books/${editingBook._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(editingBook),
@@ -72,7 +72,7 @@ function ViewBooks() {
 
     const handleBorrow = async (bookId) => {
         try {
-            const res = await fetch("https://department-library-api.onrender.com/api/borrowing/issue", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/borrowing/issue`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

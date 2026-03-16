@@ -16,7 +16,7 @@ function ViewStudents() {
 
     const fetchStudents = async () => {
         try {
-            const url = `https://department-library-api.onrender.com/api/students?department=Computer Science${filterSem ? `&semester=${filterSem}` : ""}`;
+            const url = `${import.meta.env.VITE_API_URL}/api/students?department=Computer Science${filterSem ? `&semester=${filterSem}` : ""}`;
             const res = await fetch(url);
             const data = await res.json();
             if (Array.isArray(data)) {
@@ -32,7 +32,7 @@ function ViewStudents() {
 
     const handleDelete = async (id) => {
         if (!window.confirm("Delete this student?")) return;
-        await fetch(`https://department-library-api.onrender.com/api/students/${id}`, { method: "DELETE" });
+        await fetch(`${import.meta.env.VITE_API_URL}/api/students/${id}`, { method: "DELETE" });
         fetchStudents();
     };
 
@@ -42,7 +42,7 @@ function ViewStudents() {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        await fetch(`https://department-library-api.onrender.com/api/students/${editingStudent._id}`, {
+        await fetch(`${import.meta.env.VITE_API_URL}/api/students/${editingStudent._id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(editingStudent),

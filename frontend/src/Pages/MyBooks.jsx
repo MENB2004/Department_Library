@@ -10,7 +10,7 @@ function MyBooks() {
     useEffect(() => {
         const fetchMyBooks = async () => {
             try {
-                const res = await fetch(`https://department-library-api.onrender.com/api/borrowing?userId=${user._id}`);
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/borrowing?userId=${user._id}`);
                 const data = await res.json();
                 setMyRecords(data);
             } catch (err) {

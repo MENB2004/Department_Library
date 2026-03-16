@@ -19,20 +19,20 @@ function SyllabusMapping() {
     }, []);
 
     const fetchBooks = async () => {
-        const res = await fetch("https://department-library-api.onrender.com/api/books");
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/books`);
         const data = await res.json();
         setBooks(data);
     };
 
     const fetchSyllabuses = async () => {
-        const res = await fetch("https://department-library-api.onrender.com/api/syllabus");
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/syllabus`);
         const data = await res.json();
         setSyllabuses(data);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await fetch("https://department-library-api.onrender.com/api/syllabus", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/syllabus`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ subjectName, subjectCode, semester, department: "Computer Science", syllabusContent })
@@ -47,7 +47,7 @@ function SyllabusMapping() {
 
     const mapBook = async (syllabusId) => {
         if (!selectedBook) return toast.error("Choose a reference book first");
-        const res = await fetch(`https://department-library-api.onrender.com/api/syllabus/${syllabusId}/map-book`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/syllabus/${syllabusId}/map-book`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ bookId: selectedBook })

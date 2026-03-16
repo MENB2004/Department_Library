@@ -19,7 +19,7 @@ function ViewSyllabus() {
         if (user?.department) queryParams.append("department", user.department);
         if (filterSem) queryParams.append("semester", filterSem);
 
-        const res = await fetch(`https://department-library-api.onrender.com/api/syllabus?${queryParams.toString()}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/syllabus?${queryParams.toString()}`);
         const data = await res.json();
         setSyllabuses(data);
     };
@@ -29,7 +29,7 @@ function ViewSyllabus() {
             const dueDate = new Date();
             dueDate.setDate(dueDate.getDate() + 14); // 2 weeks
 
-            const res = await fetch("https://department-library-api.onrender.com/api/borrowing/issue", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/borrowing/issue`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

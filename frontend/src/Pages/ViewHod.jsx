@@ -7,7 +7,7 @@ function ViewHod() {
     const [hods, setHods] = useState([]);
 
     useEffect(() => {
-        fetch("https://department-library-api.onrender.com/api/users")
+        fetch(`${import.meta.env.VITE_API_URL}/api/users`)
             .then((res) => res.json())
             .then((data) =>
                 setHods(data.filter((u) => u.role === "hod" && u.department === "Computer Science"))
