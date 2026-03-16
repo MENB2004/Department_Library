@@ -16,7 +16,7 @@ function ViewStudents() {
 
     const fetchStudents = async () => {
         try {
-            const url = `http://localhost:5001/api/students?department=Computer Science${filterSem ? `&semester=${filterSem}` : ""}`;
+            const url = `https://department-library-api.onrender.com/api/students?department=Computer Science${filterSem ? `&semester=${filterSem}` : ""}`;
             const res = await fetch(url);
             const data = await res.json();
             if (Array.isArray(data)) {
@@ -32,7 +32,7 @@ function ViewStudents() {
 
     const handleDelete = async (id) => {
         if (!window.confirm("Delete this student?")) return;
-        await fetch(`http://localhost:5001/api/students/${id}`, { method: "DELETE" });
+        await fetch(`https://department-library-api.onrender.com/api/students/${id}`, { method: "DELETE" });
         fetchStudents();
     };
 
@@ -42,7 +42,7 @@ function ViewStudents() {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        await fetch(`http://localhost:5001/api/students/${editingStudent._id}`, {
+        await fetch(`https://department-library-api.onrender.com/api/students/${editingStudent._id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(editingStudent),
@@ -51,21 +51,21 @@ function ViewStudents() {
         fetchStudents();
     };
 
-    const filtered = students.filter(s => 
+    const filtered = students.filter(s =>
         (filterSem ? s.semester === filterSem : true) &&
         (
-            (s.name || "").toLowerCase().includes(search.toLowerCase()) || 
+            (s.name || "").toLowerCase().includes(search.toLowerCase()) ||
             (s.registerNo || "").includes(search)
         )
     );
 
     return (
         <>
-            <div 
-                style={{ 
-                    backgroundImage: `url(${bg1})`, 
-                    backgroundSize: 'cover', 
-                    backgroundPosition: 'center', 
+            <div
+                style={{
+                    backgroundImage: `url(${bg1})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
                     backgroundRepeat: 'no-repeat',
                     minHeight: '100vh',
@@ -81,15 +81,15 @@ function ViewStudents() {
 
                         <div className="row g-3 mb-4">
                             <div className="col-md-6">
-                                <input 
-                                    className="form-control-premium w-100" 
-                                    placeholder="🔍 Search name or register number..." 
+                                <input
+                                    className="form-control-premium w-100"
+                                    placeholder="🔍 Search name or register number..."
                                     onChange={(e) => setSearch(e.target.value)}
                                 />
                             </div>
                             <div className="col-md-4">
-                                <select 
-                                    className="form-select-premium w-100" 
+                                <select
+                                    className="form-select-premium w-100"
                                     value={filterSem}
                                     onChange={(e) => setFilterSem(e.target.value)}
                                 >
@@ -157,18 +157,18 @@ function ViewStudents() {
                             <form onSubmit={handleUpdate}>
                                 <div className="mb-3">
                                     <label className="text-muted small fw-bold">Full Name</label>
-                                    <input 
-                                        className="form-control" 
-                                        value={editingStudent.name || ""} 
-                                        onChange={e => setEditingStudent({...editingStudent, name: e.target.value})} 
+                                    <input
+                                        className="form-control"
+                                        value={editingStudent.name || ""}
+                                        onChange={e => setEditingStudent({ ...editingStudent, name: e.target.value })}
                                     />
                                 </div>
                                 <div className="mb-4">
                                     <label className="text-muted small fw-bold">Register Number</label>
-                                    <input 
-                                        className="form-control" 
-                                        value={editingStudent.registerNo || ""} 
-                                        onChange={e => setEditingStudent({...editingStudent, registerNo: e.target.value})} 
+                                    <input
+                                        className="form-control"
+                                        value={editingStudent.registerNo || ""}
+                                        onChange={e => setEditingStudent({ ...editingStudent, registerNo: e.target.value })}
                                     />
                                 </div>
                                 <div className="d-flex gap-2">

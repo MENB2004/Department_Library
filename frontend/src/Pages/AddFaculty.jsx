@@ -30,7 +30,7 @@ function AddFaculty() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch("http://localhost:5001/api/auth/register", {
+            const res = await fetch("https://department-library-api.onrender.com/api/auth/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -55,11 +55,11 @@ function AddFaculty() {
 
     return (
         <>
-            <div 
-                style={{ 
-                    backgroundImage: `url(${bg2})`, 
-                    backgroundSize: 'cover', 
-                    backgroundPosition: 'center', 
+            <div
+                style={{
+                    backgroundImage: `url(${bg2})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
                     backgroundRepeat: 'no-repeat',
                     minHeight: '100vh',
@@ -73,7 +73,7 @@ function AddFaculty() {
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-lg-6 col-md-9">
-                            <div 
+                            <div
                                 className="glass-form-card"
                                 style={{
                                     background: "rgba(255, 255, 255, 0.12)",
@@ -115,13 +115,13 @@ function AddFaculty() {
                                     </div>
 
                                     <div className="form-check form-switch mb-4 p-3 ps-5" style={{ background: "rgba(255,255,255,0.05)", borderRadius: "14px" }}>
-                                        <input 
-                                            className="form-check-input" 
-                                            type="checkbox" 
-                                            id="isAdvisor" 
-                                            name="isAdvisor" 
-                                            checked={formData.isAdvisor} 
-                                            onChange={handleChange} 
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            id="isAdvisor"
+                                            name="isAdvisor"
+                                            checked={formData.isAdvisor}
+                                            onChange={handleChange}
                                         />
                                         <label className="form-check-label fw-bold text-white ms-2" htmlFor="isAdvisor">
                                             Assign Advisory Responsibilities
@@ -152,7 +152,7 @@ function AddFaculty() {
                                     )}
 
                                     <button className="btn btn-primary-premium w-100 mb-4" type="submit">Submit Registry</button>
-                                    
+
                                     <button
                                         type="button"
                                         className="btn btn-link w-100 text-light text-decoration-none opacity-50"

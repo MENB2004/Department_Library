@@ -15,9 +15,9 @@ function BorrowingHistory() {
     const fetchRecords = async () => {
         let query = "";
         if (user.role === "student") query = `?userId=${user._id}`;
-        
+
         try {
-            const res = await fetch(`http://localhost:5001/api/borrowing${query}`);
+            const res = await fetch(`https://department-library-api.onrender.com/api/borrowing${query}`);
             const data = await res.json();
             if (Array.isArray(data)) {
                 setRecords(data);
@@ -31,7 +31,7 @@ function BorrowingHistory() {
     };
 
     const handleReturn = async (id) => {
-        const res = await fetch(`http://localhost:5001/api/borrowing/return/${id}`, {
+        const res = await fetch(`https://department-library-api.onrender.com/api/borrowing/return/${id}`, {
             method: "PUT"
         });
         if (res.ok) {
@@ -42,11 +42,11 @@ function BorrowingHistory() {
 
     return (
         <>
-            <div 
-                style={{ 
-                    backgroundImage: `url(${bg1})`, 
-                    backgroundSize: 'cover', 
-                    backgroundPosition: 'center', 
+            <div
+                style={{
+                    backgroundImage: `url(${bg1})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
                     backgroundRepeat: 'no-repeat',
                     minHeight: '100vh',
@@ -105,8 +105,8 @@ function BorrowingHistory() {
                                                 </td>
                                                 <td className="text-end">
                                                     {r.status !== 'returned' && user.role !== 'student' && (
-                                                        <button 
-                                                            className="btn-return" 
+                                                        <button
+                                                            className="btn-return"
                                                             onClick={() => handleReturn(r._id)}
                                                         >
                                                             Accept Return

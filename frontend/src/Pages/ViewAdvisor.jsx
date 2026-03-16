@@ -14,7 +14,7 @@ function ViewAdvisors() {
     }, []);
 
     const fetchAdvisors = () => {
-        fetch("http://localhost:5001/api/users/advisors")
+        fetch("https://department-library-api.onrender.com/api/users/advisors")
             .then(res => res.json())
             .then(data => {
                 if (Array.isArray(data)) {
@@ -32,7 +32,7 @@ function ViewAdvisors() {
     const handleDelete = async (id) => {
         if (!window.confirm("Remove this advisor?")) return;
         try {
-            const res = await fetch(`http://localhost:5001/api/users/${id}`, { method: "DELETE" });
+            const res = await fetch(`https://department-library-api.onrender.com/api/users/${id}`, { method: "DELETE" });
             if (res.ok) {
                 toast.success("Advisor removed");
                 fetchAdvisors();
@@ -49,7 +49,7 @@ function ViewAdvisors() {
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch(`http://localhost:5001/api/users/${editingAdvisor._id}`, {
+            const res = await fetch(`https://department-library-api.onrender.com/api/users/${editingAdvisor._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(editingAdvisor),
@@ -66,11 +66,11 @@ function ViewAdvisors() {
 
     return (
         <>
-            <div 
-                style={{ 
-                    backgroundImage: `url(${bg1})`, 
-                    backgroundSize: 'cover', 
-                    backgroundPosition: 'center', 
+            <div
+                style={{
+                    backgroundImage: `url(${bg1})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
                     backgroundRepeat: 'no-repeat',
                     minHeight: '100vh',
@@ -91,7 +91,7 @@ function ViewAdvisors() {
                             {advisors.length > 0 ? (
                                 advisors.map(a => (
                                     <div key={a._id} className="col-lg-4 col-md-6">
-                                        <div 
+                                        <div
                                             className="advisor-card-glass h-100 p-4"
                                             style={{
                                                 background: "rgba(255, 255, 255, 0.05)",
@@ -111,7 +111,7 @@ function ViewAdvisors() {
                                                     <span className="small opacity-50 text-uppercase fw-bold" style={{ letterSpacing: "1px" }}>Advisor</span>
                                                 </div>
                                             </div>
-                                            
+
                                             <div className="p-3" style={{ background: "rgba(255, 255, 255, 0.03)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.05)" }}>
                                                 <div className="mb-3">
                                                     <span className="small opacity-50 d-block">Mentorship Class</span>
@@ -131,15 +131,15 @@ function ViewAdvisors() {
 
                                             {(user?.role === "admin" || user?.role === "hod") && (
                                                 <div className="d-flex gap-2 mt-4">
-                                                    <button 
-                                                        className="btn btn-outline-light flex-grow-1 py-2 text-sm" 
+                                                    <button
+                                                        className="btn btn-outline-light flex-grow-1 py-2 text-sm"
                                                         style={{ fontSize: '0.8rem', borderRadius: '12px' }}
                                                         onClick={() => handleEdit(a)}
                                                     >
                                                         Edit Record
                                                     </button>
-                                                    <button 
-                                                        className="btn btn-outline-danger flex-grow-1" 
+                                                    <button
+                                                        className="btn btn-outline-danger flex-grow-1"
                                                         style={{ fontSize: '0.8rem', borderRadius: '12px', color: '#ff4d4d', borderColor: '#ff4d4d' }}
                                                         onClick={() => handleDelete(a._id)}
                                                     >
@@ -177,37 +177,37 @@ function ViewAdvisors() {
                             <form onSubmit={handleUpdate}>
                                 <div className="mb-3">
                                     <label className="text-muted small fw-bold">Advisor Name</label>
-                                    <input 
-                                        className="form-control" 
-                                        value={editingAdvisor.name || ""} 
-                                        onChange={e => setEditingAdvisor({...editingAdvisor, name: e.target.value})} 
+                                    <input
+                                        className="form-control"
+                                        value={editingAdvisor.name || ""}
+                                        onChange={e => setEditingAdvisor({ ...editingAdvisor, name: e.target.value })}
                                         required
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label className="text-muted small fw-bold">Portal Username</label>
-                                    <input 
-                                        className="form-control" 
-                                        value={editingAdvisor.username || ""} 
-                                        onChange={e => setEditingAdvisor({...editingAdvisor, username: e.target.value})} 
+                                    <input
+                                        className="form-control"
+                                        value={editingAdvisor.username || ""}
+                                        onChange={e => setEditingAdvisor({ ...editingAdvisor, username: e.target.value })}
                                         required
                                     />
                                 </div>
                                 <div className="row mb-3">
                                     <div className="col-6">
                                         <label className="text-muted small fw-bold">Class</label>
-                                        <input 
-                                            className="form-control" 
-                                            value={editingAdvisor.advisoryClass || ""} 
-                                            onChange={e => setEditingAdvisor({...editingAdvisor, advisoryClass: e.target.value})} 
+                                        <input
+                                            className="form-control"
+                                            value={editingAdvisor.advisoryClass || ""}
+                                            onChange={e => setEditingAdvisor({ ...editingAdvisor, advisoryClass: e.target.value })}
                                         />
                                     </div>
                                     <div className="col-6">
                                         <label className="text-muted small fw-bold">Semester</label>
-                                        <input 
-                                            className="form-control" 
-                                            value={editingAdvisor.advisorySemester || ""} 
-                                            onChange={e => setEditingAdvisor({...editingAdvisor, advisorySemester: e.target.value})} 
+                                        <input
+                                            className="form-control"
+                                            value={editingAdvisor.advisorySemester || ""}
+                                            onChange={e => setEditingAdvisor({ ...editingAdvisor, advisorySemester: e.target.value })}
                                         />
                                     </div>
                                 </div>

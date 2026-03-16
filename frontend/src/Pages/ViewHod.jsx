@@ -7,7 +7,7 @@ function ViewHod() {
     const [hods, setHods] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5001/api/users")
+        fetch("https://department-library-api.onrender.com/api/users")
             .then((res) => res.json())
             .then((data) =>
                 setHods(data.filter((u) => u.role === "hod" && u.department === "Computer Science"))
@@ -16,11 +16,11 @@ function ViewHod() {
 
     return (
         <>
-            <div 
-                style={{ 
-                    backgroundImage: `url(${bg2})`, 
-                    backgroundSize: 'cover', 
-                    backgroundPosition: 'center', 
+            <div
+                style={{
+                    backgroundImage: `url(${bg2})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
                     backgroundRepeat: 'no-repeat',
                     minHeight: '100vh',
@@ -41,7 +41,7 @@ function ViewHod() {
                             {hods.length > 0 ? (
                                 hods.map((h) => (
                                     <div key={h._id} className="col-lg-5 col-md-8">
-                                        <div 
+                                        <div
                                             className="hod-card-glass p-5 text-center"
                                             style={{
                                                 background: "rgba(255, 255, 255, 0.05)",
@@ -59,7 +59,7 @@ function ViewHod() {
                                             </div>
                                             <h3 className="fw-bold mb-1">{h.name}</h3>
                                             <p className="text-uppercase fw-bold opacity-50 mb-4" style={{ letterSpacing: "2px", fontSize: "0.8rem", color: "#b8e63a" }}>Head of Department</p>
-                                            
+
                                             <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
                                                 <div className="row g-2 justify-content-center">
                                                     <div className="col-auto px-3">

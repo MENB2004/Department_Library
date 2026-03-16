@@ -18,7 +18,7 @@ function ViewBooks() {
     }, [semesterParam]);
 
     const fetchBooks = () => {
-        const url = `http://localhost:5001/api/books${semesterParam ? `?semester=${semesterParam}` : ""}`;
+        const url = `https://department-library-api.onrender.com/api/books${semesterParam ? `?semester=${semesterParam}` : ""}`;
         fetch(url)
             .then((res) => res.json())
             .then((data) => {
@@ -38,7 +38,7 @@ function ViewBooks() {
     const handleDelete = async (id) => {
         if (!window.confirm("Delete this book?")) return;
         try {
-            const res = await fetch(`http://localhost:5001/api/books/${id}`, { method: "DELETE" });
+            const res = await fetch(`https://department-library-api.onrender.com/api/books/${id}`, { method: "DELETE" });
             if (res.ok) {
                 toast.success("Book deleted");
                 fetchBooks();
@@ -55,7 +55,7 @@ function ViewBooks() {
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch(`http://localhost:5001/api/books/${editingBook._id}`, {
+            const res = await fetch(`https://department-library-api.onrender.com/api/books/${editingBook._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(editingBook),
@@ -72,12 +72,12 @@ function ViewBooks() {
 
     const handleBorrow = async (bookId) => {
         try {
-            const res = await fetch("http://localhost:5001/api/borrowing/issue", {
+            const res = await fetch("https://department-library-api.onrender.com/api/borrowing/issue", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    userId: user._id, 
-                    bookId, 
+                body: JSON.stringify({
+                    userId: user._id,
+                    bookId,
                     dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) // 14 days from now
                 }),
             });
@@ -93,18 +93,18 @@ function ViewBooks() {
         }
     };
 
-    const filteredBooks = books.filter(book => 
-        book.title.toLowerCase().includes(search.toLowerCase()) || 
+    const filteredBooks = books.filter(book =>
+        book.title.toLowerCase().includes(search.toLowerCase()) ||
         book.author.toLowerCase().includes(search.toLowerCase())
     );
 
     return (
         <>
-            <div 
-                style={{ 
-                    backgroundImage: `url(${bg2})`, 
-                    backgroundSize: 'cover', 
-                    backgroundPosition: 'center', 
+            <div
+                style={{
+                    backgroundImage: `url(${bg2})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
                     backgroundRepeat: 'no-repeat',
                     minHeight: '100vh',
@@ -116,10 +116,10 @@ function ViewBooks() {
                         <div className="glass-panel text-center mb-5 p-4" style={{ borderRadius: "24px", background: "rgba(255,255,255,0.1)", backdropFilter: "blur(20px)" }}>
                             <h1 style={{ fontWeight: "900", color: "white", fontSize: "3rem", letterSpacing: "-1.5px" }}>Library <span style={{ color: "#d6ff65" }}>Catalog</span></h1>
                             <p className="text-light opacity-75 mt-2">Computer Science Resources | {semesterParam ? `Semester ${semesterParam}` : "Full Collection"}</p>
-                            
+
                             <div className="d-flex justify-content-center gap-3 mt-4 flex-wrap">
                                 {["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"].map(sem => (
-                                    <button 
+                                    <button
                                         key={sem}
                                         onClick={() => navigate(`/viewbooks?sem=${sem}`)}
                                         className="btn btn-sm"
@@ -136,7 +136,7 @@ function ViewBooks() {
                                         {sem}
                                     </button>
                                 ))}
-                                <button 
+                                <button
                                     onClick={() => navigate(`/viewbooks`)}
                                     className="btn btn-sm"
                                     style={{
@@ -155,9 +155,9 @@ function ViewBooks() {
                         </div>
 
                         <div className="search-bar-container mb-5 mx-auto" style={{ maxWidth: "600px" }}>
-                            <input 
-                                className="form-control-premium w-100" 
-                                placeholder="🔍 Search titles or authors..." 
+                            <input
+                                className="form-control-premium w-100"
+                                placeholder="🔍 Search titles or authors..."
                                 onChange={(e) => setSearch(e.target.value)}
                             />
                         </div>
@@ -165,7 +165,7 @@ function ViewBooks() {
                         <div className="row g-4">
                             {filteredBooks.map((book) => (
                                 <div key={book._id} className="col-md-6 col-lg-4">
-                                    <div 
+                                    <div
                                         className="book-card-glass h-100"
                                         style={{
                                             background: "rgba(255, 255, 255, 0.08)",
@@ -185,7 +185,7 @@ function ViewBooks() {
                                         </div>
                                         <h4 className="fw-bold mb-2">{book.title}</h4>
                                         <p className="opacity-75 mb-4">by {book.author}</p>
-                                        
+
                                         <div className="mt-auto pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
                                             <div className="d-flex justify-content-between align-items-center mb-3">
                                                 <div>
@@ -194,27 +194,27 @@ function ViewBooks() {
                                                         {book.availableCopies} / {book.totalCopies} Copies
                                                     </span>
                                                 </div>
-                                                <div className="status-dot" style={{ 
-                                                    width: "12px", 
-                                                    height: "12px", 
-                                                    borderRadius: "50%", 
+                                                <div className="status-dot" style={{
+                                                    width: "12px",
+                                                    height: "12px",
+                                                    borderRadius: "50%",
                                                     background: book.availableCopies > 0 ? "#d6ff65" : "#ff4d4d",
                                                     boxShadow: `0 0 10px ${book.availableCopies > 0 ? "#d6ff65" : "#ff4d4d"}`
                                                 }}></div>
                                             </div>
-                                            
+
                                             <div className="d-flex gap-2 mt-2">
                                                 {(user?.role === "admin" || user?.role === "hod") ? (
                                                     <>
-                                                        <button 
-                                                            className="btn btn-outline-light flex-grow-1" 
+                                                        <button
+                                                            className="btn btn-outline-light flex-grow-1"
                                                             style={{ padding: '8px', fontSize: '14px', borderRadius: '10px' }}
                                                             onClick={() => handleEdit(book)}
                                                         >
                                                             Edit
                                                         </button>
-                                                        <button 
-                                                            className="btn btn-outline-danger flex-grow-1" 
+                                                        <button
+                                                            className="btn btn-outline-danger flex-grow-1"
                                                             style={{ padding: '8px', fontSize: '14px', borderRadius: '10px', color: '#ff4d4d', borderColor: '#ff4d4d' }}
                                                             onClick={() => handleDelete(book._id)}
                                                         >
@@ -222,8 +222,8 @@ function ViewBooks() {
                                                         </button>
                                                     </>
                                                 ) : (
-                                                    <button 
-                                                        className="btn btn-primary-premium flex-grow-1 py-2 text-sm" 
+                                                    <button
+                                                        className="btn btn-primary-premium flex-grow-1 py-2 text-sm"
                                                         style={{ fontSize: '0.8rem' }}
                                                         disabled={book.availableCopies <= 0}
                                                         onClick={() => handleBorrow(book._id)}
@@ -271,47 +271,47 @@ function ViewBooks() {
                             <form onSubmit={handleUpdate}>
                                 <div className="mb-3">
                                     <label className="text-muted small fw-bold">Book Title</label>
-                                    <input 
-                                        className="form-control" 
-                                        value={editingBook.title || ""} 
-                                        onChange={e => setEditingBook({...editingBook, title: e.target.value})} 
+                                    <input
+                                        className="form-control"
+                                        value={editingBook.title || ""}
+                                        onChange={e => setEditingBook({ ...editingBook, title: e.target.value })}
                                         required
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label className="text-muted small fw-bold">Author Name</label>
-                                    <input 
-                                        className="form-control" 
-                                        value={editingBook.author || ""} 
-                                        onChange={e => setEditingBook({...editingBook, author: e.target.value})} 
+                                    <input
+                                        className="form-control"
+                                        value={editingBook.author || ""}
+                                        onChange={e => setEditingBook({ ...editingBook, author: e.target.value })}
                                         required
                                     />
                                 </div>
                                 <div className="row mb-3">
                                     <div className="col-6">
                                         <label className="text-muted small fw-bold">Total Copies</label>
-                                        <input 
+                                        <input
                                             type="number"
-                                            className="form-control" 
-                                            value={editingBook.totalCopies || 0} 
+                                            className="form-control"
+                                            value={editingBook.totalCopies || 0}
                                             onChange={e => {
                                                 const total = parseInt(e.target.value) || 0;
                                                 const diff = total - (editingBook.totalCopies || 0);
                                                 setEditingBook({
-                                                    ...editingBook, 
+                                                    ...editingBook,
                                                     totalCopies: total,
                                                     availableCopies: (editingBook.availableCopies || 0) + diff
                                                 });
-                                            }} 
+                                            }}
                                             required
                                         />
                                     </div>
                                     <div className="col-6">
                                         <label className="text-muted small fw-bold">Semester</label>
-                                        <select 
+                                        <select
                                             className="form-select"
                                             value={editingBook.semester || "S1"}
-                                            onChange={e => setEditingBook({...editingBook, semester: e.target.value})}
+                                            onChange={e => setEditingBook({ ...editingBook, semester: e.target.value })}
                                         >
                                             {["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"].map(s => (
                                                 <option key={s} value={s}>{s}</option>

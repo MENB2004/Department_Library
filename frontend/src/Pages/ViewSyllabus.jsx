@@ -18,8 +18,8 @@ function ViewSyllabus() {
         let queryParams = new URLSearchParams();
         if (user?.department) queryParams.append("department", user.department);
         if (filterSem) queryParams.append("semester", filterSem);
-        
-        const res = await fetch(`http://localhost:5001/api/syllabus?${queryParams.toString()}`);
+
+        const res = await fetch(`https://department-library-api.onrender.com/api/syllabus?${queryParams.toString()}`);
         const data = await res.json();
         setSyllabuses(data);
     };
@@ -29,7 +29,7 @@ function ViewSyllabus() {
             const dueDate = new Date();
             dueDate.setDate(dueDate.getDate() + 14); // 2 weeks
 
-            const res = await fetch("http://localhost:5001/api/borrowing/issue", {
+            const res = await fetch("https://department-library-api.onrender.com/api/borrowing/issue", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -52,11 +52,11 @@ function ViewSyllabus() {
 
     return (
         <>
-            <div 
-                style={{ 
-                    backgroundImage: `url(${bg1})`, 
-                    backgroundSize: 'cover', 
-                    backgroundPosition: 'center', 
+            <div
+                style={{
+                    backgroundImage: `url(${bg1})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
                     backgroundRepeat: 'no-repeat',
                     minHeight: '100vh',
@@ -71,12 +71,12 @@ function ViewSyllabus() {
                             </div>
                             <h1 style={{ fontWeight: "900", color: "white", fontSize: "3rem", letterSpacing: "-1.5px" }}>Syllabus <span style={{ color: "#d6ff65" }}>Explorer</span></h1>
                             <p className="text-light opacity-75 mt-2">Comprehensive subject guides and recommended references</p>
-                            
+
                             {user?.role !== "student" && (
                                 <div className="mt-4 mx-auto" style={{ maxWidth: "300px" }}>
-                                    <select 
-                                        className="form-select-premium w-100" 
-                                        value={filterSem} 
+                                    <select
+                                        className="form-select-premium w-100"
+                                        value={filterSem}
                                         onChange={e => setFilterSem(e.target.value)}
                                     >
                                         <option value="">All Semesters</option>
@@ -89,7 +89,7 @@ function ViewSyllabus() {
                         <div className="row g-4">
                             {syllabuses.map(s => (
                                 <div className={expandedId === s._id ? "col-12" : "col-lg-4 col-md-6"} key={s._id} style={{ transition: '0.5s ease' }}>
-                                    <div 
+                                    <div
                                         className={`syllabus-card-glass h-100 p-4 ${expandedId === s._id ? 'expanded' : ''}`}
                                         onClick={() => setExpandedId(expandedId === s._id ? null : s._id)}
                                         style={{
@@ -114,19 +114,19 @@ function ViewSyllabus() {
                                             </div>
                                         </div>
                                         <h4 className="fw-bold mb-3">{s.subjectName}</h4>
-                                        <p 
-                                            className="opacity-75 small mb-4" 
-                                            style={{ 
-                                                display: '-webkit-box', 
-                                                WebkitLineClamp: expandedId === s._id ? 'unset' : '3', 
-                                                WebkitBoxOrient: 'vertical', 
+                                        <p
+                                            className="opacity-75 small mb-4"
+                                            style={{
+                                                display: '-webkit-box',
+                                                WebkitLineClamp: expandedId === s._id ? 'unset' : '3',
+                                                WebkitBoxOrient: 'vertical',
                                                 overflow: expandedId === s._id ? 'visible' : 'hidden',
                                                 transition: '0.3s'
                                             }}
                                         >
                                             {s.syllabusContent || "Subject syllabus details pending submission."}
                                         </p>
-                                        
+
                                         <div className="mt-auto pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
                                             <h6 className="small text-uppercase fw-extrabold mb-3" style={{ color: "#d6ff65", letterSpacing: "1px" }}>Recommended Resources</h6>
                                             <div className="mapped-books-list" onClick={e => e.stopPropagation()}>
@@ -138,8 +138,8 @@ function ViewSyllabus() {
                                                                 <span className="small opacity-90">{b.title}</span>
                                                             </div>
                                                             {user?.role === "student" && (
-                                                                <button 
-                                                                    className="btn btn-sm btn-outline-light py-0 px-2" 
+                                                                <button
+                                                                    className="btn btn-sm btn-outline-light py-0 px-2"
                                                                     style={{ fontSize: '0.65rem', borderRadius: '6px', height: '20px' }}
                                                                     onClick={() => handleBorrow(b._id)}
                                                                 >

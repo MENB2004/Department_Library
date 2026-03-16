@@ -19,7 +19,7 @@ function AddStudent() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch("http://localhost:5001/api/auth/register", {
+            const res = await fetch("https://department-library-api.onrender.com/api/auth/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ ...formData, department: "Computer Science", role: "student" }),
@@ -38,11 +38,11 @@ function AddStudent() {
 
     return (
         <>
-            <div 
-                style={{ 
-                    backgroundImage: `url(${bg2})`, 
-                    backgroundSize: 'cover', 
-                    backgroundPosition: 'center', 
+            <div
+                style={{
+                    backgroundImage: `url(${bg2})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
                     backgroundRepeat: 'no-repeat',
                     minHeight: '100vh',
@@ -56,7 +56,7 @@ function AddStudent() {
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-lg-6 col-md-8">
-                            <div 
+                            <div
                                 className="glass-form-card"
                                 style={{
                                     background: "rgba(255, 255, 255, 0.15)",
@@ -112,7 +112,7 @@ function AddStudent() {
                                     </div>
 
                                     <button className="btn btn-primary-premium w-100 mb-3" type="submit">Complete Enrollment</button>
-                                    
+
                                     <button
                                         type="button"
                                         className="btn btn-outline-light w-100"

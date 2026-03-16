@@ -10,7 +10,7 @@ function MyBooks() {
     useEffect(() => {
         const fetchMyBooks = async () => {
             try {
-                const res = await fetch(`http://localhost:5001/api/borrowing?userId=${user._id}`);
+                const res = await fetch(`https://department-library-api.onrender.com/api/borrowing?userId=${user._id}`);
                 const data = await res.json();
                 setMyRecords(data);
             } catch (err) {
@@ -22,11 +22,11 @@ function MyBooks() {
 
     return (
         <>
-            <div 
-                style={{ 
-                    backgroundImage: `url(${bg3})`, 
-                    backgroundSize: 'cover', 
-                    backgroundPosition: 'center', 
+            <div
+                style={{
+                    backgroundImage: `url(${bg3})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
                     backgroundRepeat: 'no-repeat',
                     minHeight: '100vh',
@@ -47,7 +47,7 @@ function MyBooks() {
                             {myRecords.length > 0 ? (
                                 myRecords.map(r => (
                                     <div key={r._id} className="col-lg-6">
-                                        <div 
+                                        <div
                                             className="loan-card-glass p-4"
                                             style={{
                                                 background: r.status === 'overdue' ? "rgba(255, 77, 77, 0.08)" : "rgba(255, 255, 255, 0.06)",
@@ -93,8 +93,8 @@ function MyBooks() {
                                 <div className="text-center py-5">
                                     <div className="mb-4" style={{ fontSize: "4rem", opacity: 0.2 }}>📭</div>
                                     <h3 className="text-white opacity-25">No active book loans at the moment.</h3>
-                                    <button 
-                                        className="btn btn-outline-light mt-4 px-4 py-2" 
+                                    <button
+                                        className="btn btn-outline-light mt-4 px-4 py-2"
                                         style={{ borderRadius: "12px", border: "1px solid rgba(255,255,255,0.15)" }}
                                         onClick={() => navigate("/viewbooks")}
                                     >

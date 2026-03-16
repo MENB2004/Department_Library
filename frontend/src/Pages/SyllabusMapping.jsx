@@ -19,20 +19,20 @@ function SyllabusMapping() {
     }, []);
 
     const fetchBooks = async () => {
-        const res = await fetch("http://localhost:5001/api/books");
+        const res = await fetch("https://department-library-api.onrender.com/api/books");
         const data = await res.json();
         setBooks(data);
     };
 
     const fetchSyllabuses = async () => {
-        const res = await fetch("http://localhost:5001/api/syllabus");
+        const res = await fetch("https://department-library-api.onrender.com/api/syllabus");
         const data = await res.json();
         setSyllabuses(data);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await fetch("http://localhost:5001/api/syllabus", {
+        const res = await fetch("https://department-library-api.onrender.com/api/syllabus", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ subjectName, subjectCode, semester, department: "Computer Science", syllabusContent })
@@ -47,7 +47,7 @@ function SyllabusMapping() {
 
     const mapBook = async (syllabusId) => {
         if (!selectedBook) return toast.error("Choose a reference book first");
-        const res = await fetch(`http://localhost:5001/api/syllabus/${syllabusId}/map-book`, {
+        const res = await fetch(`https://department-library-api.onrender.com/api/syllabus/${syllabusId}/map-book`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ bookId: selectedBook })
@@ -60,11 +60,11 @@ function SyllabusMapping() {
 
     return (
         <>
-            <div 
-                style={{ 
-                    backgroundImage: `url(${bg3})`, 
-                    backgroundSize: 'cover', 
-                    backgroundPosition: 'center', 
+            <div
+                style={{
+                    backgroundImage: `url(${bg3})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
                     backgroundRepeat: 'no-repeat',
                     minHeight: '100vh',

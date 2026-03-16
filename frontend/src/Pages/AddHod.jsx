@@ -19,7 +19,7 @@ function AddHod() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch("http://localhost:5001/api/auth/register", {
+            const res = await fetch("https://department-library-api.onrender.com/api/auth/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ ...formData, role: "hod" }),
@@ -38,11 +38,11 @@ function AddHod() {
 
     return (
         <>
-            <div 
-                style={{ 
-                    backgroundImage: `url(${bg2})`, 
-                    backgroundSize: 'cover', 
-                    backgroundPosition: 'center', 
+            <div
+                style={{
+                    backgroundImage: `url(${bg2})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
                     backgroundRepeat: 'no-repeat',
                     minHeight: '100vh',
@@ -56,7 +56,7 @@ function AddHod() {
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-lg-5 col-md-8">
-                            <div 
+                            <div
                                 className="glass-form-card"
                                 style={{
                                     background: "rgba(255, 255, 255, 0.12)",
@@ -81,46 +81,46 @@ function AddHod() {
                                     <div className="mb-4 row align-items-center">
                                         <label className="col-sm-4 form-label fw-bold opacity-75 mb-0 text-start">HOD Name</label>
                                         <div className="col-sm-8">
-                                            <input 
-                                                name="name" 
-                                                className="form-control-premium w-100" 
-                                                placeholder="e.g. Dr. Ada Lovelace" 
+                                            <input
+                                                name="name"
+                                                className="form-control-premium w-100"
+                                                placeholder="e.g. Dr. Ada Lovelace"
                                                 value={formData.name}
-                                                onChange={handleChange} 
-                                                required 
+                                                onChange={handleChange}
+                                                required
                                             />
                                         </div>
                                     </div>
                                     <div className="mb-4 row align-items-center">
                                         <label className="col-sm-4 form-label fw-bold opacity-75 mb-0 text-start">Portal Username</label>
                                         <div className="col-sm-8">
-                                            <input 
-                                                name="username" 
-                                                className="form-control-premium w-100" 
-                                                placeholder="e.g. hod_cs" 
+                                            <input
+                                                name="username"
+                                                className="form-control-premium w-100"
+                                                placeholder="e.g. hod_cs"
                                                 value={formData.username}
-                                                onChange={handleChange} 
-                                                required 
+                                                onChange={handleChange}
+                                                required
                                             />
                                         </div>
                                     </div>
                                     <div className="mb-4 row align-items-center">
                                         <label className="col-sm-4 form-label fw-bold opacity-75 mb-0 text-start">Access Password</label>
                                         <div className="col-sm-8">
-                                            <input 
-                                                type="password" 
-                                                name="password" 
-                                                className="form-control-premium w-100" 
-                                                placeholder="Input secure access key" 
+                                            <input
+                                                type="password"
+                                                name="password"
+                                                className="form-control-premium w-100"
+                                                placeholder="Input secure access key"
                                                 value={formData.password}
-                                                onChange={handleChange} 
-                                                required 
+                                                onChange={handleChange}
+                                                required
                                             />
                                         </div>
                                     </div>
 
                                     <button className="btn btn-primary-premium w-100 mb-4 mt-2" type="submit">Establish Leadership</button>
-                                    
+
                                     <button
                                         type="button"
                                         className="btn btn-link w-100 text-light text-decoration-none opacity-50"

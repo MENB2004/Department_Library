@@ -15,7 +15,7 @@ function ViewFaculty() {
     }, []);
 
     const fetchFaculty = () => {
-        fetch("http://localhost:5001/api/users")
+        fetch("https://department-library-api.onrender.com/api/users")
             .then((res) => res.json())
             .then((data) => {
                 if (Array.isArray(data)) {
@@ -33,7 +33,7 @@ function ViewFaculty() {
     const handleDelete = async (id) => {
         if (!window.confirm("Remove this faculty member?")) return;
         try {
-            const res = await fetch(`http://localhost:5001/api/users/${id}`, { method: "DELETE" });
+            const res = await fetch(`https://department-library-api.onrender.com/api/users/${id}`, { method: "DELETE" });
             if (res.ok) {
                 toast.success("Faculty member removed");
                 fetchFaculty();
@@ -50,7 +50,7 @@ function ViewFaculty() {
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch(`http://localhost:5001/api/users/${editingFaculty._id}`, {
+            const res = await fetch(`https://department-library-api.onrender.com/api/users/${editingFaculty._id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(editingFaculty),
@@ -67,11 +67,11 @@ function ViewFaculty() {
 
     return (
         <>
-            <div 
-                style={{ 
-                    backgroundImage: `url(${bg2})`, 
-                    backgroundSize: 'cover', 
-                    backgroundPosition: 'center', 
+            <div
+                style={{
+                    backgroundImage: `url(${bg2})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
                     backgroundRepeat: 'no-repeat',
                     minHeight: '100vh',
@@ -91,7 +91,7 @@ function ViewFaculty() {
                         <div className="row g-4">
                             {faculty.map((f) => (
                                 <div key={f._id} className="col-lg-4 col-md-6">
-                                    <div 
+                                    <div
                                         className="faculty-card-glass h-100 p-4"
                                         style={{
                                             background: "rgba(255, 255, 255, 0.05)",
@@ -111,7 +111,7 @@ function ViewFaculty() {
                                                 <span className="small opacity-50 text-uppercase fw-bold" style={{ letterSpacing: "1px" }}>{f.role}</span>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="p-3" style={{ background: "rgba(255, 255, 255, 0.03)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.05)" }}>
                                             <div className="mb-2">
                                                 <span className="small opacity-50 d-block">Department</span>
@@ -135,15 +135,15 @@ function ViewFaculty() {
 
                                         {(user?.role === "admin" || user?.role === "hod") && (
                                             <div className="d-flex gap-2 mt-4">
-                                                <button 
-                                                    className="btn btn-outline-light flex-grow-1 py-2 text-sm" 
+                                                <button
+                                                    className="btn btn-outline-light flex-grow-1 py-2 text-sm"
                                                     style={{ fontSize: '0.8rem', borderRadius: '12px' }}
                                                     onClick={() => handleEdit(f)}
                                                 >
                                                     Edit Profile
                                                 </button>
-                                                <button 
-                                                    className="btn btn-outline-danger flex-grow-1" 
+                                                <button
+                                                    className="btn btn-outline-danger flex-grow-1"
                                                     style={{ fontSize: '0.8rem', borderRadius: '12px', color: '#ff4d4d', borderColor: '#ff4d4d' }}
                                                     onClick={() => handleDelete(f._id)}
                                                 >
@@ -176,34 +176,34 @@ function ViewFaculty() {
                             <form onSubmit={handleUpdate}>
                                 <div className="mb-3">
                                     <label className="text-muted small fw-bold">Full Name</label>
-                                    <input 
-                                        className="form-control" 
-                                        value={editingFaculty.name || ""} 
-                                        onChange={e => setEditingFaculty({...editingFaculty, name: e.target.value})} 
+                                    <input
+                                        className="form-control"
+                                        value={editingFaculty.name || ""}
+                                        onChange={e => setEditingFaculty({ ...editingFaculty, name: e.target.value })}
                                         required
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label className="text-muted small fw-bold">Portal Username</label>
-                                    <input 
-                                        className="form-control" 
-                                        value={editingFaculty.username || ""} 
-                                        onChange={e => setEditingFaculty({...editingFaculty, username: e.target.value})} 
+                                    <input
+                                        className="form-control"
+                                        value={editingFaculty.username || ""}
+                                        onChange={e => setEditingFaculty({ ...editingFaculty, username: e.target.value })}
                                         required
                                     />
                                 </div>
-                                
+
                                 <div className="p-3 mb-4" style={{ background: "#f8f9fa", borderRadius: "16px", border: "1px solid #eee" }}>
                                     <div className="form-check form-switch mb-3">
-                                        <input 
-                                            className="form-check-input" 
-                                            type="checkbox" 
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
                                             id="advisorSwitch"
                                             checked={editingFaculty.isAdvisor || false}
                                             onChange={e => {
                                                 const checked = e.target.checked;
                                                 setEditingFaculty({
-                                                    ...editingFaculty, 
+                                                    ...editingFaculty,
                                                     isAdvisor: checked,
                                                     role: checked ? "advisor" : "faculty"
                                                 });
@@ -218,30 +218,30 @@ function ViewFaculty() {
                                         <div className="row g-2">
                                             <div className="col-4">
                                                 <label className="text-muted small fw-bold">Class</label>
-                                                <input 
-                                                    className="form-control form-control-sm" 
-                                                    value={editingFaculty.advisoryClass || ""} 
-                                                    onChange={e => setEditingFaculty({...editingFaculty, advisoryClass: e.target.value})}
+                                                <input
+                                                    className="form-control form-control-sm"
+                                                    value={editingFaculty.advisoryClass || ""}
+                                                    onChange={e => setEditingFaculty({ ...editingFaculty, advisoryClass: e.target.value })}
                                                     placeholder="e.g. CS-A"
                                                     required
                                                 />
                                             </div>
                                             <div className="col-4">
                                                 <label className="text-muted small fw-bold">Sem</label>
-                                                <select 
-                                                    className="form-select form-select-sm" 
-                                                    value={editingFaculty.advisorySemester || "S1"} 
-                                                    onChange={e => setEditingFaculty({...editingFaculty, advisorySemester: e.target.value})}
+                                                <select
+                                                    className="form-select form-select-sm"
+                                                    value={editingFaculty.advisorySemester || "S1"}
+                                                    onChange={e => setEditingFaculty({ ...editingFaculty, advisorySemester: e.target.value })}
                                                 >
                                                     {["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"].map(s => <option key={s} value={s}>{s}</option>)}
                                                 </select>
                                             </div>
                                             <div className="col-4">
                                                 <label className="text-muted small fw-bold">Batch</label>
-                                                <input 
-                                                    className="form-control form-control-sm" 
-                                                    value={editingFaculty.batch || ""} 
-                                                    onChange={e => setEditingFaculty({...editingFaculty, batch: e.target.value})}
+                                                <input
+                                                    className="form-control form-control-sm"
+                                                    value={editingFaculty.batch || ""}
+                                                    onChange={e => setEditingFaculty({ ...editingFaculty, batch: e.target.value })}
                                                     placeholder="2022-26"
                                                     required
                                                 />
