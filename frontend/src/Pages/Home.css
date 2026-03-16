@@ -1,0 +1,95 @@
+/* Background image */
+.header-bg {
+  background-image: url('../assets/bg1.avif');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+}
+
+/* Dark overlay */
+.overlay {
+  background: rgba(2, 6, 23, 0.45);
+  height: 100%;
+  width: 100%;
+}
+
+/* Center content */
+.center-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Glass card */
+.login-card {
+  background: rgba(15, 23, 42, 0.326);
+  border-radius: 16px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+}
+
+/* Logo */
+.logo-img {
+  width: 140px;
+  margin-right: 15px;
+}
+
+/* Heading */
+.login-card h5 {
+  color: #f4b400;
+  letter-spacing: 1px;
+}
+
+.login-card h4 {
+  color: #facc15;
+  font-weight: 600;
+}
+/* Login circle */
+.login-circle {
+  width: 130px;
+  height: 130px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #0f172a;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Icon inside circle */
+.login-circle svg {
+  color: #0f172a;
+}
+
+/* Hover effect */
+.login-circle:hover {
+  background:#ffc107;
+  color: white;
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.login-circle:hover svg {
+  color: white;
+}
+
+/* Mobile responsive */
+@media(max-width:768px){
+  .logo-img{
+    width:100px;
+  }
+
+  .login-circle{
+    width:100px;
+    height:100px;
+    font-size:14px;
+  }
+}
